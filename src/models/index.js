@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import User from './user';
 import Message from './message';
+import Team from './team';
 
 const connectDb = () => {
   if (process.env.TEST_DATABASE_URL) {
@@ -19,7 +20,7 @@ const connectDb = () => {
   }
 };
 
-const models = { User, Message };
+const models = { User, Message, Team };
 
 export { connectDb };
 
