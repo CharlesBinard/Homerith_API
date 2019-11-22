@@ -9,7 +9,6 @@ import {
   ApolloServer,
   AuthenticationError,
 } from 'apollo-server-express';
-
 import schema from './schema';
 import resolvers from './resolvers';
 import models, { connectDb } from './models';
@@ -21,6 +20,7 @@ app.use(cors());
 
 app.use(morgan('dev'));
 
+
 const getMe = async req => {
   const token = req.headers['x-token'];
 
@@ -28,9 +28,7 @@ const getMe = async req => {
     try {
       return await jwt.verify(token, process.env.SECRET);
     } catch (e) {
-      throw new AuthenticationError(
-        'Your session expired. Sign in again.',
-      );
+     return null
     }
   }
 };

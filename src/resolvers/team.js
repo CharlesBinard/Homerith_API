@@ -1,5 +1,5 @@
 import { combineResolvers } from 'graphql-resolvers';
-
+import uploadFile from '../utils/uploadFile'
 import { EVENTS } from '../subscription';
 import { isAdmin } from './authorization';
 
@@ -49,18 +49,13 @@ export default {
     createTeam: combineResolvers(
       // isAdmin,
       async (parent, { name, logo }, { models }) => {
-        const { stream, filename, mimetype, encoding } = await logo;
-        console.log(stream, filename, mimetype, encoding)
-        console.log('======LOGO======', logo)
-        console.log('=============TEST==============')
-
+        const uploadedFile = await uploadFile(logo,'logo');
+        console.log(uploadedFile, 'logo')
         const team = await models.Team.create({
           name,
+          logo: uploadedFile
         });
-        
-
-        return team;
-      },
+      }
     ),
 
     deleteTeam: combineResolvers(
