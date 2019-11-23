@@ -1,7 +1,8 @@
 import cloudinary from 'cloudinary';
 
 export const processUpload= async (upload, tag) => {
-    const {stream }= await upload;
+    const { createReadStream }= await upload;
+    const stream = createReadStream()
  
     cloudinary.v2.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

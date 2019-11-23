@@ -10,7 +10,7 @@ const fromCursorHash = string =>
 
 export default {
   Query: {
-    teams: async (parent, { cursor, limit = 100 }, { models }) => {
+    scores: async (parent, { cursor, limit = 100 }, { models }) => {
       const cursorOptions = cursor
         ? {
             createdAt: {
@@ -18,7 +18,7 @@ export default {
             },
           }
         : {};
-      const teams = await models.Team.find(
+      const scores = await models.Score.find(
         cursorOptions,
         null,
         {
@@ -27,8 +27,8 @@ export default {
         },
       );
 
-      const hasNextPage = teams.length > limit;
-      const edges = hasNextPage ? teams.slice(0, -1) : teams;
+      const hasNextPage = scores.length > limit;
+      const edges = hasNextPage ? scores.slice(0, -1) : scores;
 
       return {
         edges,
@@ -40,32 +40,31 @@ export default {
         },
       };
     },
-    team: async (parent, { id }, { models }) => {
-      return await models.Team.findById(id);
+    score: async (parent, { id }, { models }) => {
+      return await models.Score.findById(id);
     },
   },
 
   Mutation: {
-    createTeam: combineResolvers(
+    createScore: combineResolvers(
       // isAdmin,
-      async (parent, { name, logo }, { models }) => {
-        const uploadedFile = await uploadFile(logo,'logo');
-        const team = await models.Team.create({
-          name,
-          logo: uploadedFile
+      async (parent, { victoryPoint, looserPoint, victoryTeam, looserTeam }, { models }) => {
+        const score = await models.Score.create({
+          victoryPoint,
+          looserPoint,
+          victoryTeam,
+          looserTeam
         });
-
-        return team || null
       }
     ),
 
-    deleteTeam: combineResolvers(
+    deleteScore: combineResolvers(
       isAdmin,
       async (parent, { id }, { models }) => {
-        const team = await models.Team.findById(id);
+        const score = await models.Score.findById(id);
 
-        if (team) {
-          await team.remove();
+        if (score) {
+          await score.remove();
           return true;
         } else {
           return false;

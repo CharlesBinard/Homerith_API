@@ -85,10 +85,11 @@ server.installSubscriptionHandlers(httpServer);
 
 const port = process.env.PORT || 8000;
 
-connectDb().then(async () => {
-
+connectDb()
+.then(async (res) => {
   httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`);
   });
-});
+})
+.catch(err => console.log(err));
 
