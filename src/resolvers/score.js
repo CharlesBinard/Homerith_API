@@ -25,7 +25,7 @@ export default {
           sort: { createdAt: -1 },
           limit: limit + 1,
         },
-      );
+      ).populate('victoryTeam').populate('looserTeam').exec();
 
       const hasNextPage = scores.length > limit;
       const edges = hasNextPage ? scores.slice(0, -1) : scores;
@@ -41,7 +41,7 @@ export default {
       };
     },
     score: async (parent, { id }, { models }) => {
-      return await models.Score.findById(id);
+      return await models.Score.findById(id).populate('victoryTeam').populate('looserTeam').exec();
     },
   },
 
