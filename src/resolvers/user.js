@@ -84,9 +84,9 @@ export default {
         if (user) {
           await user.remove();
           return true;
-        } else {
+        } 
           return false;
-        }
+        
       },
     ),
   },

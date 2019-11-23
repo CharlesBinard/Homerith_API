@@ -72,9 +72,9 @@ export default {
         if (message) {
           await message.remove();
           return true;
-        } else {
+        } 
           return false;
-        }
+        
       },
     ),
   },

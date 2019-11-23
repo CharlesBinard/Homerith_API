@@ -1,6 +1,5 @@
 import { combineResolvers } from 'graphql-resolvers';
 import uploadFile from '../utils/uploadFile'
-import { EVENTS } from '../subscription';
 import { isAdmin } from './authorization';
 
 const toCursorHash = string => Buffer.from(string).toString('base64');
@@ -67,9 +66,9 @@ export default {
         if (team) {
           await team.remove();
           return true;
-        } else {
+        } 
           return false;
-        }
+        
       },
     ),
   },

@@ -5,7 +5,7 @@ import Message from './message';
 import Team from './team';
 import Score from './score';
 
-let { DB_USER, DB_HOST, DB_NAME, DB_PORT, DB_PASSWORD } = process.env;
+const { DB_USER, DB_HOST, DB_NAME, DB_PORT, DB_PASSWORD } = process.env;
 
 const connectDb = () => {
   if (DB_HOST && DB_NAME) {

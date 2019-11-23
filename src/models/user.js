@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.findByLogin = async function(login) {
+userSchema.statics.findByLogin = async (login) => {
   let user = await this.findOne({
     username: login,
   });
@@ -38,20 +38,20 @@ userSchema.statics.findByLogin = async function(login) {
   return user;
 };
 
-userSchema.pre('remove', function(next) {
+userSchema.pre('remove', (next) => {
   this.model('Message').deleteMany({ userId: this._id }, next);
 });
 
-userSchema.pre('save', async function() {
+userSchema.pre('save', async () => {
   this.password = await this.generatePasswordHash();
 });
 
-userSchema.methods.generatePasswordHash = async function() {
+userSchema.methods.generatePasswordHash = async () => {
   const saltRounds = 10;
   return await bcryptjs.hash(this.password, saltRounds);
 };
 
-userSchema.methods.validatePassword = async function(password) {
+userSchema.methods.validatePassword = async (password) => {
   return await bcryptjs.compare(password, this.password);
 };
 

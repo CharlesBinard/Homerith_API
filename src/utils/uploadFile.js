@@ -2,7 +2,7 @@ import cloudinary from 'cloudinary';
 
 export const processUpload= async (upload, tag) => {
     const { createReadStream }= await upload;
-    const stream = createReadStream()
+    const streamRead = createReadStream()
  
     cloudinary.v2.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -10,7 +10,7 @@ export const processUpload= async (upload, tag) => {
         api_secret: process.env.CLOUDINARY_API_SECRET
     })
  
-     let resultUrl = '', resultSecureUrl = '';
+     let resultUrl = '';
      const cloudinaryUpload = async ({stream}) => {
          try {
              await new Promise((resolve, reject) => {
@@ -19,10 +19,9 @@ export const processUpload= async (upload, tag) => {
                  const streamLoad = cloudinary.v2.uploader.upload_stream({ 
                      public_id: `${folderCloudinary}/${tag}/${uniqueFilename}`, 
                      tags: tag 
-                    },function (error, result) {
+                    }, (error, result) => {
                      if (result) {
                          resultUrl = result.secure_url;
-                         resultSecureUrl = result.secure_url;
                          resolve(resultUrl)
                      } else {
                          reject(error);
@@ -37,7 +36,7 @@ export const processUpload= async (upload, tag) => {
          }
      };
  
-     await cloudinaryUpload({stream});
+     await cloudinaryUpload({stream: streamRead});
      return(resultUrl)
  
  };

@@ -7,7 +7,6 @@ import DataLoader from 'dataloader';
 import express from 'express';
 import {
   ApolloServer,
-  AuthenticationError,
 } from 'apollo-server-express';
 import schema from './schema';
 import resolvers from './resolvers';
@@ -86,7 +85,7 @@ server.installSubscriptionHandlers(httpServer);
 const port = process.env.PORT || 8000;
 
 connectDb()
-.then(async (res) => {
+.then(async () => {
   httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`);
   });
