@@ -49,12 +49,16 @@ export default {
     createScore: combineResolvers(
       // isAdmin,
       async (parent, { victoryPoint, looserPoint, victoryTeam, looserTeam }, { models }) => {
-        const score = await models.Score.create({
+
+        let score = await models.Score.create({
           victoryPoint,
           looserPoint,
           victoryTeam,
           looserTeam
-        });
+        })
+        score = await score.populate('victoryTeam').populate('looserTeam').execPopulate()
+      
+        return score || null
       }
     ),
 

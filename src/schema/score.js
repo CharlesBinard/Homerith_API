@@ -7,7 +7,7 @@ export default gql`
   }
 
   extend type Mutation {
-    createScore(vicotoryPoint: Int!,looserPoint: Int!,victoryTeam: Int!,looserTeam: Int!): Score!
+    createScore(victoryPoint: Int!,looserPoint: Int!,victoryTeam: ID!,looserTeam: ID!): Score!
     deleteScore(id: ID!): Boolean!
   }
 
@@ -18,18 +18,10 @@ export default gql`
 
   type Score {
     id: ID!
-    vicotoryPoint: Int!
+    victoryPoint: Int!
     looserPoint: Int!
     victoryTeam: Team!
-    looseTeam: Team!
-  }
-
-  extend type Subscription {
-    scoreCreated: ScoreCreated!
-  }
-
-  type ScoreCreated {
-    score: Score!
+    looserTeam: Team!
   }
 `;
 

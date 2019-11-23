@@ -23,11 +23,4 @@ export default gql`
     createdAt: Date!
   }
 
-  extend type Subscription {
-    teamCreated: TeamCreated!
-  }
-
-  type TeamCreated {
-    team: Team!
-  }
 `;
