@@ -15,8 +15,9 @@ export const processUpload= async (upload, tag) => {
          try {
              await new Promise((resolve, reject) => {
                  const uniqueFilename = new Date().toISOString();
+                 const folderCloudinary = process.env.NODE_ENV ==='production' ? 'prod' : 'dev'
                  const streamLoad = cloudinary.v2.uploader.upload_stream({ 
-                     public_id: `dev/${tag}/${uniqueFilename}`, 
+                     public_id: `${folderCloudinary}/${tag}/${uniqueFilename}`, 
                      tags: tag 
                     },function (error, result) {
                      if (result) {
