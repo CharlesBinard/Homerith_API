@@ -19,8 +19,8 @@ export default gql`
   type Team {
     id: ID!
     name: String!
-    logo: String
-    createdAt: Date!
+    logo: String!
+    createdAt: Date
   }
 
 `;
